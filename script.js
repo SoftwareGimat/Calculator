@@ -20,40 +20,39 @@ let aux = (numA, op, numb) => {
 }
 
 let Equal = () => {
-    // lastButton = "";
-    // screen.innerHTML = lastButton;
+    let lb = lastButton;
     let a = [];
     let local1 = "";
-    for (let i = 0; i<lastButton.length; i++) {
-        if (lastButton[i] != "+" && lastButton[i] != "-" && lastButton[i] != "X" && lastButton[i] != "/") {
-            local1+=lastButton[i];
-            if (i == lastButton.length-1) {
-                // a.push (local1);
+    for (let i = 0; i < lb.length; i++) {
+        if (lb[i]!="+" && lb[i]!="-" && lb[i]!="X" && lb[i]!="/") {
+            local1+=lb[i];
+            if (i == lb.length-1) {
+                a.push (local1);
             }
-            console.log(local1);
-        } else if ((lastButton[i] == "+" || lastButton[i] == "-" || lastButton[i] == "X" || lastButton[i] == "/") && (i < lastButton.length-1)) {
+        } else if (lb[i]=="+" || lb[i]=="-" || lb[i]=="X" || lb[i]=="/") {
             a.push (local1);
             local1 = "";
-            a.push (lastButton[i]);
-        } else  {
-            // a.push (local1);
+            a.push (lb[i]);
+            console.log(lb[i],"operacion");
         }
     }
-    console.log(a);
-    for (let i = 0; i < a.length ; i++) {
-        if (a[i] != "+" && a[i] != "-" && a[i] != "X" && a[i] != "/") {
-            a[i] = Number (a[i]);
-        }
-    }
-    console.log(a);
-    let local2 = 0;
+    console.log (a); // create vector with strings
+
     for (let i = 0; i<a.length; i++) {
-        if (a[i]=="+"||a[i]=="-"||a[i]=="X"||a[i]=="/") {
-            local2 = aux(a[i-1],a[i],a[i+1]); // resultado
-            console.log("se da condicion");
+        if (a[i]!="+" && a[i]!="-" && a[i]!="X" && a[i]!="/") {
+            a[i] = Number(a[i]);
         }
     }
-    lastButton = local2;
+    console.log (a); // str to num
+
+    let local2 = a[0];
+    for (let i = 0; i<a.length; i++) {
+        if (a[i]=="+" || a[i]=="-" || a[i]=="X" || a[i]=="/") {
+            local2 = aux (local2, a[i],a[i+1]);
+        }
+    }
+    console.log (local2);
+    lastButton=local2;
     screen.innerHTML = lastButton;
 }
 
@@ -70,4 +69,3 @@ let Clear = () => {
     lastButton = "";
     screen.innerHTML = lastButton;
 }
-
